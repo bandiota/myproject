@@ -1,0 +1,20 @@
+{% extends 'stockmgmgt/base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<main class="container" style="max-width: fit-content;">
+  
+  <div class="jumbotron">
+    <h1>{{title}}</h1>
+    <form method="POST" action="">
+        {% csrf_token %}
+       <h1>Are you sure, you want to delete ?</h1>
+        <input class="btn btn-danger" type="submit" value="Yes, Delete">
+        <a href="{% url 'view_category' %}" class="btn btn-primary">No, Cancel</a>
+    </form>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "myapp/base.html" %}
+
+{% block content %}
+    <!-- send notification form -->
+    <div class="noti">
+        <h4>Send Notification</h4>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                {% if not is_all %}
+                <label for="inputUsername4">Username</label>
+                <input type="text" class="form-control" id="inputUsername4" value="{{ user.username }}"
+                disabled>
+                {% else %}
+                <label for="inputUsername5">Type</label>
+                <input type="text" class="form-control" id="inputUsername5" value="Globally sending"
+                    disabled>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <input type="text" name="message" id="message" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-dark">Send</button>
+        </form>
+    </div>
+{% endblock %}

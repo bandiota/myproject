@@ -1,0 +1,105 @@
+<div class="container-fluid">
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Everest Pharmaceutical Ltd.</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    {% if user.is_authenticated %}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Dashboard </a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'home' %}">Inventory Management </a>
+            </li>
+            {% if request.session.user_is_super and request.session.user_is_staff %}
+            <li class="nav-item">
+                <a class="nav-link" href="/register">Add User </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin">Admin Site </a>
+            </li>
+            {% endif %}
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            {% if not request.session.user_is_super %}
+            <!-- pop-up window button -->
+            <button type="button" class="btn btn-dark mr-sm-2" data-toggle="modal" data-target="#myModal"
+                id="myButton">
+                <i class="fas fa-bell mr-2"></i>
+                Notification
+                <span class="badge badge-primary notification-badge">{{ no }}</span>
+            </button>
+            {% endif %}
+            <a href="/logout" class="btn btn-light my-2 my-sm-0"
+                onclick="return confirm('Are you sure you want to logout?')" type="submit"> {{user}} | Logout</a>   
+        </form>
+    </div>
+    {% endif %}
+</nav>
+
+<!-- <div>
+    {% for message in messages %}
+        <div id="message-timer" class="alert
+            {% if message.tags == 'error' %}
+            alert-danger
+            {% else %}
+            alert-{{ message.tags }}
+            {% endif %}
+            alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+</div> -->
+
+    {% for message in messages %}
+
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <p id="message-timer" class="alert alert-success float-center text-center message.text">
+                {{ message }}
+            </p>
+        {% endif %}
+
+    {% endfor %}
+
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Notification</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    {% for n in notifications %}
+                    <li {% if n.is_read %} style="color: gray;" {% endif %}>
+                        {{ n.message }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <form method="post" id="post-form" action="/read-notification">
+                {% csrf_token %}
+                <div class="modal-footer">
+                    {% if no %}
+                    <button type="submit" class="btn btn-success" id="read-btn">Read</button>
+                    {% else %}
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>

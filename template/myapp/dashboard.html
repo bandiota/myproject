@@ -1,0 +1,69 @@
+{% extends "myapp/base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="profile">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Sl. No.</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Profile Picture</th>
+                            <th scope="col">Full name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td scope="row">{{ user.username }}</td>
+                            <td>
+                                <div class="circle">
+                                    {% if user.profile_picture %}
+                                    <img src="/media/{{ user.profile_picture }}" alt="Profile Picture">
+                                    {% else %}
+                                    <img src="/static/images/prof-pic.png" alt="Profile Picture">
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>{{ user.fullname }}</td>
+                            <td>{{ user.email }}</td>
+                            {% if request.session.username == user.username or request.session.user_is_staff %}
+                            <td>
+                                {% if not user.is_super or user_is_super %}
+                                <a class="btn btn-dark btn-sm" href="/profile/{{ user.username }}">Edit</a>
+                                
+                                {% if request.session.user_is_super and request.session.username != user.username %}
+                                <a class="btn btn-danger btn-sm" href="/profile-delete/{{ user.username }}"
+                                    onclick="return confirm('Are you sure you want to delete your profile?')">Delete</a>
+                                
+                                <a class="btn btn-primary btn-sm" href="/notification/{{ user.username }}">Send</a>
+                                {% endif %}
+                                {% endif %}
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                {% if request.session.user_is_super %}
+                                <a class="btn btn-info btn-sm" href="/notification/all" style="margin-left: 88px;">Send all</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

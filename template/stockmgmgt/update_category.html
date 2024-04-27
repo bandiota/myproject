@@ -1,0 +1,21 @@
+{% extends 'stockmgmgt/base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<main class="container" style="max-width: 600px;">
+  <div class="jumbotron">
+    <h1 style="text-align: center;">{{title}}</h1>
+    <br>
+    <div class="display_table">
+      <form method="POST" action="">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input class="btn btn-primary" type="submit" value="save">
+        <a href="{% url 'view_category' %}" class="btn btn-primary">Cancel</a>
+      </form>
+    </div>
+  </div>
+</main>
+{% endblock %}

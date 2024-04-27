@@ -1,0 +1,107 @@
+{% extends "myapp/base.html" %}
+
+{% block content %}
+    <!-- user profile -->
+    <div class="profile">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="ppic" style="margin-bottom: 3%;">
+                    {% if user.profile_picture %}
+                    <img src="/media/{{ user.profile_picture }}" alt="Profile Picture" id="current-image"
+                        class="img-fluid">
+                    {% else %}
+                    <img src="/static/images/prof-pic.png" alt="Profile Picture" id="current-image" class="img-fluid">
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="upload-input" class="upload-label">Profile Picture</label>
+                    <input type="file" name="profile-picture" accept="image/*" name="profile-picture" id="upload-input">
+                    <div id="preview-container"></div>
+                    <button class="btn btn-dark mt-3" id="crop-button" type="button">Crop</button>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputUsername4">Username</label>
+                    <input type="text" class="form-control" id="inputUsername4" value="{{ user.username }}"
+                        name="username" disabled>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4" value="{{ user.email }}" name="email"
+                        required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputPassword4">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4" value="{{ user.password }}"
+                        name="password" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputFullname">Full name</label>
+                    <input type="text" class="form-control" id="inputFullname" name="fullname"
+                        value="{{ user.fullname }}" required>
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputAddress">Address</label>
+                    <input type="text" class="form-control" id="inputAddress" value="{{ user.address }}" name="address">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputPhone">Designation</label>
+                    <input type="text" class="form-control" id="inputPhone" value="{{ user.designation }}" name="Designation"
+                        required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputPhone">Phone</label>
+                    <input type="text" class="form-control" id="inputPhone" value="{{ user.phone }}" name="phone"
+                        required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputGender">Gender</label>
+                    <select id="inputGender" class="form-control" name="gender">
+                        <option value="{{ user.gender }}" selected disabled>{{ user.gender }}</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputLastlogin">Last login</label>
+                    {% if user.last_login %}
+                    <input type="text" class="form-control" id="inputLastlogin" value="{{ user.last_login }}" disabled>
+                    {% else %}
+                    <input type="text" class="form-control" id="inputLastlogin" value="Not logged in yet" disabled>
+                    {% endif %}
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputJoineddate">Joined date</label>
+                    <input type="text" class="form-control" id="inputJoineddate" value="{{ user.date_joined }}"
+                        disabled>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputModifiedon">Last modified on</label>
+                    <input type="text" class="form-control" id="inputModifiedon" value="{{ user.modified_on }}"
+                        disabled>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck" checked>
+                    <label class="form-check-label" for="gridCheck">
+                        I agree to change {{ user.username }}'s details
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-dark" id="myButton">Save</button>
+            <a href="/profile-delete/{{ user.username }}" class="btn btn-danger dlt-btn"
+                onclick="return confirm('Are you sure you want to delete your profile?')">Delete Profile</a>
+        </form>
+    </div>
+{% endblock %}
