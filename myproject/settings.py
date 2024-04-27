@@ -29,7 +29,7 @@ INSTALLED_APPS = [
 
 CRISPY_TEMPLATE_PACK    =   'bootstrap4'
 CSRF_TRUSTED_ORIGINS = [
-    'myproject-production-1959.up.railway.app'
+    'https://myproject-production-1959.up.railway.app'
 ]
 
 MIDDLEWARE = [
