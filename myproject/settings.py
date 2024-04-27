@@ -28,6 +28,7 @@ INSTALLED_APPS = [
 ]
 
 CRISPY_TEMPLATE_PACK    =   'bootstrap4'
+CSRF_TRUSTED_ORIGINS = ['*.up.railway.app']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
