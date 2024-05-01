@@ -67,44 +67,23 @@ TEMPLATES = [
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'monorail.proxy.rlwy.net',
+        'NAME': 'railway',
+        'USER': 'root',
+        'PORT': '27641',
+        'PASSWORD': 'TLanvMwOFDATiShPVJzytvMlEQUtoVON',
     }
 }
-
-
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'myproject',
-#         'USER':'bandiota',
-#         'PASSWORD':'Nickson@255#',
-#         "HOST": "localhost",
-#         "PORT": "3306",
-#     }
-# }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'HOST': 'roundhouse.proxy.rlwy.net',
-#         'NAME': 'railway',
-#         'USER': 'root',
-#         'PORT': '17257',
-#         'PASSWORD': 'wmYZeeJpWbPMrOXjvniBadzAXDQcRSgP',
-#     }
-# }
-
-
-
-
-
-
-
 
 # User Model
 AUTH_USER_MODEL = 'myapp.User'
